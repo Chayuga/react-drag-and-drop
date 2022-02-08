@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CourseData } from "./assets/CourseData";
 import { useDrop } from "react-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import Course from "./Course";
 
@@ -29,6 +30,23 @@ const DragDrop = () => {
     }
   };
 
+  //   ========================= movable Items =============================
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(board);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  const onEnd = (result) => {
+    console.log(result);
+    setBoard(reorder(board, result.source.index, result.destination.index));
+  };
+
+  // ========================== End movable Items ==========================
+
   return (
     <div className="flex">
       <div className="h-screen bg-blue-100">
@@ -39,19 +57,34 @@ const DragDrop = () => {
         })}
       </div>
       <div className="flex-grow h-screen bg-red-100" ref={drop}>
-        {board.map((course) => {
-          return (
-            <div id={course.id} className="">
-              <button
-                onClick={() => removeCourseFromBoard()}
-                className="flex bg-red-800 text-white rounded-lg px-3"
-              >
-                remove
-              </button>
-              <Course src={course.imageTag} title={course.title} />
-            </div>
-          );
-        })}
+        <DragDropContext onDragEnd={onEnd}>
+          <Droppable droppableId="1234">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}>
+                {board.map((course, index) => {
+                  return (
+                    <Draggable
+                      draggableId={`${course.id}`}
+                      key={course.title}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Course src={course.imageTag} title={course.title} />
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );
