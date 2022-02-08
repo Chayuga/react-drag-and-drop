@@ -1,4 +1,4 @@
-const css3Img = "./images/css3.png";
+const css3Img = require("./images/css3.jpg");
 const githubImg = require("./images/github.png").default;
 const html5Img = require("./images/html5.png").default;
 const angularImg = require("./images/angular.png").default;
