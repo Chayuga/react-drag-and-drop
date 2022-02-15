@@ -64,7 +64,7 @@ const DragDrop = () => {
                 {board.map((course, index) => {
                   return (
                     <Draggable
-                      draggableId={`${course.id}`}
+                      draggableId={`${index}`}
                       key={course.title}
                       index={index}
                     >
