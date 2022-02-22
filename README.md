@@ -6,6 +6,10 @@ YouTube: https://youtu.be/4bzJrEETW4w
 
 ## React-beautiful-dnd:
 
+### Beautiful and Accessible Drag and Drop with react-beautiful-dnd
+
+:https://egghead.io/courses/beautiful-and-accessible-drag-and-drop-with-react-beautiful-dnd
+
 Docs: https://github.com/atlassian/react-beautiful-dnd
 
 Docs: https://react-beautiful-dnd.netlify.app/?path=/story/multi-drag--pattern
